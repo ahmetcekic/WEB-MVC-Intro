@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1>Merhaba Dünya</h1>
+    <button id="tikla">Tıkla</button>
+</div>
+
+
+<!--Sayfa içerisine js kodu eklemek isterseniz aşağıdaki yöntemi kullanabilirsiniz. Burası Layout'da ki @@await RenderSectionAsync("Scripts", required: false) kısmını çağırır ve sayfanın en sonunda çalışması sağlanır. -->
+
+@* @section Scripts {
+    <script>
+        $('#tikla').on("click", function () {
+            alert("Tıklandı!!!")
+        })
+    </script>
+} *@

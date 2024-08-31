@@ -1,0 +1,29 @@
+﻿.NET Core Proje Yapısı ve Kestrel Server
+
+- Properties Klasörü 
+	Properties klasörünün içerisindeki launchSettings.json dosyası uygulamayı başlatmak için gereken bilgileri içeren bir dosya türüdür. Bu dosya içerisindeki profiles, uygulamanın çalıştırılaibileceği profilleri içerir. 
+
+- appsettings.json
+	.NET Core içerisindeki tüm bağlantı dizeleri, uygulamayla ilgili ayarlar appsettings.json dosyasında JSON biçiminde kullanılır.
+
+- wwwroot
+	.NET Core platformunda CSS, JavaScript, resimler, simgeler vb. statik dosyları sunmak ve depolamak için bir wwwroot klasörünü var olması gerekmektedir. Program.cs içerisinde app.UseStaticFiles() methodu ile birlikte oluşturuduğumuz static dosyaları uygulama içerisinde kullanacağımızı tanıtmalıyız.
+
+- Program.cs
+	Uygulamanın giriş noktası olan ana yöntemdir. Uygulamada kullanılan tüm hizmetleri tanımlmak ve ara yazılım bileşenleri(middleware) kullanımıla HTTP isteklerini yapılandırmak için kullanılan dosyadır. 
+
+- Dependencies Dosyası
+	Microsoft.NetCore.App => Sistem ile ilgili genel işlemleri kapsayan framework
+	Microsoft.AspNetCore.App => WEB ile ilgili framework
+
+-!!!!!!!!!!!
+Program.cs'te "var builder =  WebApplication.CreateBuilder(args);" ile başlayıp "var app = builder.Build()" bölümüne kadar olan kısımda servisler tanımlanır.  "var app = builder.Build()" kısmından "app.Run()" kısmına kadar olan bölümde ise Middleware(ara yazılım)'lar tanımlanır. 
+
+- Middleware Nedir?
+	Middleware request-response pipeline'ını işlememizi sağlayan bir çeşit interceptor(method çağrımları sırasında araya girerek kesişen ilgilerimizi işletmemizi ve yönetmemeizi sağlamaktadır) görevi gören ara katman yazılımdır. Her bir bileşen, isteğin işlem hattında sonraki bileşene geçirilip geçirilmeyeceğini seçer. Aynı zamanda işlem hattındaki sonraki bişelenden önce ve sonra iş gerçekleştirebilir. Middleware'ler kullanarak proje içerisindeki birçok request-response işlemlerini düzenleyebiliriz ve birçok check işlemlerinde middleware kullanabiliriz. Middleware kullanarak proejelrimiz Aspect Oriented Programming avantajlarını sağlaaybiliriz. Aynı zamanda moduler yapıdan geliştirme yapmamıza olanak tanıdığı için kod tekrarlarından, spaghetti kod kullanımından kurtarır. 
+	
+- Kestrel Server Nedir?
+	Kestrel, ASP .NET Core için platformalar arası bir WEB sunucusudur. ASP .NET Core proje şablonlarında varsayılan oalrak bulunan bir WEB sunucusudur. .NET Core ile birlikte kestral server dediğimiz birçok open-source(açık kaynak kodlu, herkesin geliştirebildiği, katkı sağlayabildiği ücretsiz uygulamalar) programlama dilinin desteklediği yazılımsal bir web server arayüzü implemente edilmiştir. Zaten bu sayede farklı ortamlarda web sitemizi yayınlayabiliyoruz. Yani kestrel sayesinde bir .NET Core uygulaması Linux, MacOs, Windows, Ubuntu vs. gibi farklı işletim sistemlerindeki web sunucularında yayınlanabilir. .NET Core öncesinde bir web uygulaması sadece Windows ortamındaki sunucular tarafından çalıştırılabiliyordu.
+
+	Aynı zamanda kestrel server uygulama seviyesinde çalışan bir yazılım katmanıdır. Bunun dışında web sunucumuzu farklı ortamlarda yayınlamak için Apache, NodeJS, IIS gibi web server hizmetlerinden herhangi birisini veya daha fazlasını uyugulama ile uyumlu hale getirmek için yazılmış bir ara birimdir. 
+
